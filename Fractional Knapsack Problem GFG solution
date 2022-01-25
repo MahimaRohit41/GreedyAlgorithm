@@ -1,0 +1,35 @@
+ class Solution
+{
+    public:
+    
+    static bool compare(struct Item a,struct Item b)
+    {
+        double r1 = (double)a.value/a.weight;
+        double r2 = (double)b.value/b.weight;
+        
+        return r1>r2;
+    }
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+        sort(arr,arr+n,compare);
+        double ans = 0.0;
+        int curr_cap = W;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i].weight<=curr_cap)
+            {
+                curr_cap = curr_cap-arr[i].weight;
+                ans = ans + arr[i].value;
+            }
+            else
+            {
+                ans = ans + arr[i].value*((double)curr_cap/(double)arr[i].weight);
+                break;
+            }
+        }
+        return ans;
+    }
+        
+};
