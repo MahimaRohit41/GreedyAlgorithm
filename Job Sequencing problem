@@ -1,0 +1,41 @@
+bool compare(struct Job a,struct Job b)
+{
+    return a.profit>b.profit;
+}
+
+
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        vector<int> ans;
+        int pro = 0;
+        int job = 0;
+        bool slot[n];
+        sort(arr,arr+n,compare);
+        
+        for(int i=0;i<n;i++)
+            slot[i] = false;
+            
+        for(int i=0;i<n;i++)
+        {
+            for(int j=min(n,arr[i].dead)-1;j>=0;j--)
+            {
+                if(slot[j]==false)
+                {
+                    pro = pro + arr[i].profit;
+                    job++;
+                    slot[j] = true;
+                    break;
+                }
+            }
+        }
+        ans.push_back(job);
+        ans.push_back(pro);
+        
+        return ans;
+        
+    } 
+};
